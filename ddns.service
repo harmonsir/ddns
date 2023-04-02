@@ -1,0 +1,19 @@
+[Unit]
+Description=DDNS Service
+After=network.target
+
+[Service]
+NoNewPrivileges=true
+DynamicUser=yes
+
+WorkingDirectory=/home/ubuntu/ddns
+ExecStart=/home/ubuntu/ddns/pyddns
+KillMode=process
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=5
+
+StandardOutput=append:/var/log/ddns.log
+
+[Install]
+WantedBy=multi-user.target
