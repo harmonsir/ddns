@@ -1,0 +1,21 @@
+globals:
+  interval: 300
+
+domains:
+  - name: abc1.example.com
+    #  interval: checked it delay interval
+    ip_type: 4
+    ip_urls:
+      - "https://api.ipify.org"
+    provider:
+      - name: cloudflare
+        api_key: api_key
+        zone_id: zone_id
+  - name: abc2.example.com
+    ip_type: 4
+    ip_urls:
+      - "https://api.ipify.org"
+    provider:
+      - name: cloudflare
+        api_key: api_key
+        zone_id: zone_id
