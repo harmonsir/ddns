@@ -23,6 +23,7 @@ def update_dns(provider, domain, ip):
 
 
 async def update_domains(config):
+    interval = config.get("globals", {}).get("interval", 300)
     while True:
         for domain_config in config['domains']:
             domain = domain_config['name']
@@ -45,13 +46,16 @@ async def update_domains(config):
                         ip_address=current_ip,
                     )
         print("Done and sleep 300s !!")
-        await asyncio.sleep(300)
+        await asyncio.sleep(interval)
 
 
 async def main():
     with open('config.yml', 'r') as f:
         config = yaml.safe_load(f)
-    await update_domains(config)
+    try:
+        await update_domains(config)
+    except requests.HTTPError:
+        await asyncio.sleep(30)
 
 
 if __name__ == '__main__':
