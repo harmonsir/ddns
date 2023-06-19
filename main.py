@@ -57,7 +57,10 @@ async def main():
             await asyncio.sleep(interval)
         except requests.exceptions.SSLError as e:
             print(e)
-        except requests.HTTPError:
+        except requests.exceptions.Timeout:
+            await asyncio.sleep(15)
+        except requests.exceptions.HTTPError as e:
+            print(f"err: {e} !!")
             await asyncio.sleep(30)
 
 
