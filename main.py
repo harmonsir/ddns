@@ -1,5 +1,4 @@
 import asyncio
-
 import requests
 import yaml
 
@@ -52,12 +51,14 @@ async def main():
     interval = config.get("globals", {}).get("interval", 300)
     while True:
         try:
+            print("Starting update ddns !!")
             await update_domains(config)
             print("Done and sleep 300s !!")
             await asyncio.sleep(interval)
         except requests.exceptions.SSLError as e:
             print(e)
-        except requests.exceptions.Timeout:
+        except requests.exceptions.Timeout as e:
+            print(f"err: {e} !!")
             await asyncio.sleep(15)
         except requests.exceptions.HTTPError as e:
             print(f"err: {e} !!")
